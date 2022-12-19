@@ -175,18 +175,21 @@ class LammpsMinimization(BaseLammpsGenerator):
         dimension: int = 3,
         boundary: str = "p p p",
         read_data: str = "system.data",
+        read_potential: str = "potential.data",
     ):
         self.units = units
         self.atom_style = atom_style
         self.dimension = dimension
         self.boundary = boundary
-        self.read_data = read_data
+        self.read_structure = read_data
+        self.read_potential = read_potential
         self.settings = {
             "units": units,
             "atom_style": atom_style,
             "dimension": dimension,
             "boundary": boundary,
-            "read_data": read_data,
+            "read_structure": read_data,
+            "read_potential": read_potential,
         }
         super().__init__(settings=self.settings)
 

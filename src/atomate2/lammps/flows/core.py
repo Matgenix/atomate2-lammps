@@ -2,7 +2,8 @@ from dataclasses import dataclass, field
 
 from jobflow import Flow, Maker
 from pymatgen.core import Structure
-from pymatgen.io.lammps.sets import BaseLammpsGenerator, LammpsMinimization
+
+from atomate2.lammps.sets.base import BaseLammpsGenerator, LammpsMinimization
 
 from ..jobs.base import LammpsMaker
 from ..jobs.core import MinimizationMaker

@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 
-from pymatgen.io.lammps.sets import BaseLammpsGenerator, LammpsMinimization
+from atomate2.lammps.sets.base import BaseLammpsGenerator, LammpsMinimization
 
 from ..jobs.base import BaseLammpsMaker
 
