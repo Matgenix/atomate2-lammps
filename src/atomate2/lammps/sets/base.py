@@ -9,7 +9,6 @@ from pathlib import Path
 from string import Template
 
 from monty.io import zopen
-
 from pymatgen.core import Structure
 from pymatgen.io.core import InputGenerator, InputSet
 from pymatgen.io.lammps.data import CombinedData, LammpsData
@@ -75,8 +74,12 @@ class LammpsInputSet(InputSet):
         """
         input_file = LammpsInputFile.from_file(os.path.join(directory, "in.lammps"))
         atom_style = input_file.get_args("atom_style")
-        data_file = LammpsData.from_file(os.path.join(directory, "system.data"), atom_style=atom_style)
-        return LammpsInputSet(inputfile=input_file, data=data_file, calc_type="read_from_dir")
+        data_file = LammpsData.from_file(
+            os.path.join(directory, "system.data"), atom_style=atom_style
+        )
+        return LammpsInputSet(
+            inputfile=input_file, data=data_file, calc_type="read_from_dir"
+        )
 
     def validate(self) -> bool:
         """
@@ -85,7 +88,9 @@ class LammpsInputSet(InputSet):
 
         Will raise a NotImplementedError unless overloaded by the inheriting class.
         """
-        raise NotImplementedError(f".validate() has not been implemented in {self.__class__}")
+        raise NotImplementedError(
+            f".validate() has not been implemented in {self.__class__}"
+        )
 
 
 class BaseLammpsGenerator(InputGenerator):
@@ -121,7 +126,11 @@ class BaseLammpsGenerator(InputGenerator):
         self.input_file = LammpsInputFile.from_string(self.input_str)
 
     def get_input_set(  # type: ignore
-        self, structure: Structure | LammpsData | CombinedData | None  # pylint: disable=E1131
+        self,
+        structure: Structure
+        | LammpsData
+        | CombinedData
+        | None,  # pylint: disable=E1131
     ) -> LammpsInputSet:
         """
         Generate a LammpsInputSet from the structure/data file, tailored to the template file.
@@ -133,7 +142,10 @@ class BaseLammpsGenerator(InputGenerator):
 
         # Get the LammpsInputSet from the input file and data
         input_set = LammpsInputSet(
-            inputfile=self.input_file, data=data, calc_type=self.calc_type, template_file=self.template
+            inputfile=self.input_file,
+            data=data,
+            calc_type=self.calc_type,
+            template_file=self.template,
         )
 
         return input_set
