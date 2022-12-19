@@ -32,12 +32,13 @@ def run_lammps(
             If None, invoke the `lammps_cmd` in serial mode.
         mpi_num_processes: The number of MPI processes to pass to `mpi_cmd` with
             the `mpi_num_processes_flag`.
-        mpi_num_processes_flag: The command-line flag to use with MPI to pass the number of processes,
-            e.g., `-n/n` [default] or `np/-np`.
-        max_walltime_hours: The maximum walltime in hours to allow for the task. If provided, attempts will
-            be made to cleanly end the calculation after this amount of time. Note: if using with a queueing system,
-            this value should leave suffcient time for the clean-up of the calculation within the maximum walltime
-            allocated to the job by the queue.
+        mpi_num_processes_flag: The command-line flag to use with MPI to pass the
+            number of processes, e.g., `-n/n` [default] or `np/-np`.
+        max_walltime_hours: The maximum walltime in hours to allow for the task. If
+            provided, attempts will be made to cleanly end the calculation after this
+            amount of time. Note: if using with a queueing system, this value should
+            leave sufficient time for the clean-up of the calculation within the
+            maximum walltime allocated to the job by the queue.
         stdout_file: The name of or path to a file in which to save the stdout stream.
         stderr_file: The name of or path to a file in which to save the stderr stream.
 

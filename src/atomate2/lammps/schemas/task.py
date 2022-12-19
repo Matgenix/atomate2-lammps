@@ -1,9 +1,8 @@
 from pathlib import Path
 from typing import Type
 
-from pydantic import Field
-
 from atomate2.common.schemas.structure import StructureMetadata
+from pydantic import Field
 
 
 class TaskDocument(StructureMetadata):

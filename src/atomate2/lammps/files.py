@@ -1,11 +1,12 @@
 from pathlib import Path
 
 from pymatgen.core import Structure
-from pymatgen.io.lammps.sets import BaseLammpsGenerator
+
+from .sets.base import BaseLammpsGenerator
 
 
 def write_lammps_input_set(
-    structure: Structure,
+    structure: Structure | Path,
     input_set_generator: BaseLammpsGenerator,
     directory: str | Path = ".",
     **kwargs,

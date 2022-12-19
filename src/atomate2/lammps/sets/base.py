@@ -39,11 +39,13 @@ class LammpsInputSet(InputSet):
         """
         Args:
             inputfile: The input file containing settings.
-                       It can be a LammpsInputFile object or a string representation.
+                It can be a LammpsInputFile object or a string representation.
             data: The data file containing structure and topology information.
-                  It can be a LammpsData or a CombinedData object.
-            calc_type: String used to shortly describe the type of computations performed by LAMMPS.
-            template_file: Path (string) to the template file used to create the input file for LAMMPS.
+                It can be a LammpsData or a CombinedData object.
+            calc_type: String used to shortly describe the type of computations
+                performed by LAMMPS.
+            template_file: Path (string) to the template file used to create the
+                input file for LAMMPS.
         """
         self.inputfile = inputfile
         self.data = data
@@ -66,11 +68,13 @@ class LammpsInputSet(InputSet):
     def from_directory(cls, directory: str | Path):  # pylint: disable=E1131
         """
         Construct a LammpsInputSet from a directory of two or more files.
-        TODO: accept directories with only the input file, that should include the structure as well.
+        TODO: accept directories with only the input file, that should include the
+            structure as well.
 
         Args:
-            directory: Directory to read input files from. It should contain at least two files:
-                       in.lammps for the LAMMPS input file, and system.data with the system information.
+            directory: Directory to read input files from. It should contain at least
+                two files: in.lammps for the LAMMPS input file, and system.data
+                with the system information.
         """
         input_file = LammpsInputFile.from_file(os.path.join(directory, "in.lammps"))
         atom_style = input_file.get_args("atom_style")
@@ -98,17 +102,21 @@ class BaseLammpsGenerator(InputGenerator):
     Base class to generate LAMMPS input sets.
     Uses template files for the input. The variables that can be changed
     in the input template file are those starting with a $ sign, e.g., $nsteps.
-    This generic class is specialized for each template in subclasses, e.g. LammpsMinimization.
-    You can create a template for your own task following those present in pymatgen/io/lammps/templates.
+    This generic class is specialized for each template in subclasses,
+    e.g. LammpsMinimization.
+
     The parameters are then replaced based on the values found
     in the settings dictionary that you provide, e.g., {"nsteps": 1000}.
 
     Parameters:
-        template: Path (string) to the template file used to create the input file for LAMMPS.
-        calc_type: String used to shortly describe the type of computations performed by LAMMPS.
+        template: Path (string) to the template file used to create the input
+            file for LAMMPS.
+        calc_type: String used to shortly describe the type of computations
+            performed by LAMMPS.
 
     Args:
-        settings: Dictionary containing the values of the parameters to replace in the template.
+        settings: Dictionary containing the values of the parameters to
+            replace in the template.
     """
 
     template: str = os.path.join(template_dir, "md.template")
@@ -132,8 +140,8 @@ class BaseLammpsGenerator(InputGenerator):
         | CombinedData
         | None,  # pylint: disable=E1131
     ) -> LammpsInputSet:
-        """
-        Generate a LammpsInputSet from the structure/data file, tailored to the template file.
+        """Generate a LammpsInputSet from the structure/data file,
+        tailored to the template file.
         """
         if isinstance(structure, Structure):
             data = LammpsData.from_structure(structure)
@@ -153,8 +161,8 @@ class BaseLammpsGenerator(InputGenerator):
 
 class LammpsMinimization(BaseLammpsGenerator):
     """
-    Yields a LammpsInputSet tailored for minimizing the energy of a system by iteratively
-    adjusting atom coordinates.
+    Yields a LammpsInputSet tailored for minimizing the energy of a system by
+    iteratively adjusting atom coordinates.
     """
 
     template = os.path.join(template_dir, "minimization.template")

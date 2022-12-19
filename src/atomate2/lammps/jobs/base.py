@@ -1,21 +1,20 @@
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Callable
+from typing import Any, Callable, List
 
 from jobflow import Maker, Response, job
 from monty.serialization import dumpfn
 from monty.shutil import gzip_dir
 from pymatgen.core import Structure
-from pymatgen.io.lammps.sets import BaseLammpsGenerator
 
 from ..files import write_lammps_input_set
+from ..run import run_lammps
 from ..schemas.task import TaskDocument
+from ..sets.base import BaseLammpsGenerator
 
-_DATA_OBJECTS = []
+_DATA_OBJECTS: List[Any] = []
 
 __all__ = ("BaseLammpsMaker", "lammps_job")
-
-from ..run import run_lammps
 
 
 def lammps_job(method: Callable):
