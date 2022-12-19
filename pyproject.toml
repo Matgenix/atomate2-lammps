@@ -2,8 +2,10 @@
 requires = ["setuptools >= 42", "versioningit ~= 1.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
-[tools.setuptools.packages]
-find = {namespaces = true}
+[tools.setuptools]
+packages = ["atomate2.lammps"]
+[tools.setuptools.find]
+where = ["src"]
 
 [project]
 name = "atomate2-lammps"
