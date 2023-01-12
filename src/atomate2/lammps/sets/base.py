@@ -159,6 +159,40 @@ class BaseLammpsGenerator(InputGenerator):
         return input_set
 
 
+class LammpsMD(BaseLammpsGenerator):
+    """
+    Yields a LammpsInputSet tailored for dynamics.
+    """
+
+    template = os.path.join(template_dir, "md.template")
+    calc_type = "molecular dynamics"
+
+    def __init__(
+        self,
+        units: str = "metal",
+        atom_style: str = "full",
+        dimension: int = 3,
+        boundary: str = "p p p",
+        read_data: str = "system.data",
+        read_potential: str = "potential.data",
+    ):
+        self.units = units
+        self.atom_style = atom_style
+        self.dimension = dimension
+        self.boundary = boundary
+        self.read_structure = read_data
+        self.read_potential = read_potential
+        self.settings = {
+            "units": units,
+            "atom_style": atom_style,
+            "dimension": dimension,
+            "boundary": boundary,
+            "read_structure": read_data,
+            "read_potential": read_potential,
+        }
+        super().__init__(settings=self.settings)
+
+
 class LammpsMinimization(BaseLammpsGenerator):
     """
     Yields a LammpsInputSet tailored for minimizing the energy of a system by
