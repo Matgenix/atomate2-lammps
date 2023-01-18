@@ -1,3 +1,4 @@
+from .conditions import TemperatureProfile
 from .stopping_criteria import (
     EquilibriumStoppingCriteria,
     SimulationTimeStoppingCriteria,

@@ -1,8 +1,6 @@
 from abc import ABC
 from dataclasses import dataclass, field
 
-from atomate2.lammps.common.units import Time
-
 __all__ = (
     "StoppingCriteria",
     "SimulationTimeStoppingCriteria",
@@ -12,14 +10,15 @@ __all__ = (
 
 @dataclass
 class StoppingCriteria(ABC):
-    pass
+    ...
 
 
 class SimulationTimeStoppingCriteria(StoppingCriteria):
-    """Stop the simulation after the amount of time has been simulated."""
+    """Stop the simulation after a target amount of time has been simulated."""
 
-    simulation_time: float = field(default_factory=Time)
+    simulation_time: float = field(default_factory=float)
+    """The simulation time to stop after, in ps."""
 
-
-class EquilibriumStoppingCriteria(StoppingCriteria):
-    """Stop the simulation after equilibrium has been reached."""
+    equilibration_time: float = field(default_factory=float)
+    """An initial period to use for equilibration in ps. Will not count towards
+    the stopping criteria."""
